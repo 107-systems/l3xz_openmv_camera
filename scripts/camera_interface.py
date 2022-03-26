@@ -29,6 +29,8 @@ class OpenmvDumper:
   def dump(self):
     fb =  pyopenmv.fb_dump()
     if fb is not None:
+      print(fb[0])
+      print(fb[1])
       img = fb[2]
       return img
     else:
