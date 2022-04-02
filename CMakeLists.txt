@@ -19,17 +19,21 @@ endif()
 
 find_package(catkin REQUIRED COMPONENTS
   rospy
-  sensor_msgs
   std_msgs
 )
 
+#catkin_python_setup()
 catkin_package(
-  CATKIN_DEPENDS rospy sensor_msgs std_msgs
+  CATKIN_DEPENDS rospy std_msgs
 )
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+
+install(DIRECTORY scripts/
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+        USE_SOURCE_PERMISSIONS)
 
 catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
