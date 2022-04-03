@@ -16,9 +16,9 @@ from camera_interface import OpenMvInterface
 import time
 
 omv_cam = None
-mutex = threading.Lock()
+mutex = threading.Lock() # Mutex for asynchronous services and publishing.
 
-def rgb_callback(request):
+def rgb_callback(request): # rgb service implementation
   global omv_cam
   global mutex
   mutex.acquire()
@@ -28,6 +28,7 @@ def rgb_callback(request):
 
 def main():
   global omv_cam
+  # Initialize node, camera, services, publishers and subscribers with parameters.
   rospy.init_node('openmv')
 
   frame_id = rospy.get_param("~frame_id", "odom")
@@ -52,6 +53,7 @@ def main():
   pub_info = rospy.Publisher(rospy.get_name() + "/" + rospy.get_param("~info_topic", "camera_info"),
           CameraInfo, queue_size = rospy.get_param("~image_queue", 1))
 
+  # Initialize messages.
   img_msg = Image()
   img_msg.header.frame_id = frame_id
   img_compressed_msg = CompressedImage()
@@ -63,12 +65,13 @@ def main():
   global mutex
   while not rospy.is_shutdown():
     mutex.acquire()
-    framedump = omv_cam.dump()
+    framedump = omv_cam.dump() # Get new frame from camera buffer.
     mutex.release()
     if framedump is not None:
-      if show:
+      if show: # Show if required.
         cv2.imshow(img_name, framedump.pixels)
         cv2.waitKey(1)
+      # Publish what we have.
       pub_image.publish(framedump.fill_img_msg(img_msg))
       pub_image_compressed.publish(framedump.fill_jpeg_msg(img_compressed_msg))
       pub_info.publish(framedump.fill_info_msg(info_msg))
