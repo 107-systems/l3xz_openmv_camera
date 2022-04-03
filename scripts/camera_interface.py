@@ -99,7 +99,7 @@ class OpenMvInterface:
     resolution: Camera resolution (QQVGA or QVGA)
   """
     self._resolution = resolution
-    self._interface = rpc.rpc_usb_vcp_master(port)
+    self._interface = rpc.rpc_usb_vcp_master(port) # Connect via rpc.
 
   def __del__(self):
     pass
@@ -126,7 +126,7 @@ class OpenMvInterface:
     else:
       data += "0"
  
-    result = self._interface.call("rgb", data)
+    result = self._interface.call("rgb", data) # Do rpc call.
     return result is not None
  
   def dump(self):
@@ -135,13 +135,14 @@ class OpenMvInterface:
   Returns:
     FrameDump object with image.
   """
-    result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor." + self._resolution)
+    result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor." + self._resolution) # Initiate snapshot.
     size = struct.unpack("<I", result)[0]
     raw = bytearray(size)
-    result = self._interface.call("jpeg_image_read")
+    result = self._interface.call("jpeg_image_read") # Fill buffer.
     
     if result is not None:
-      self._interface.get_bytes(raw, 5000)
+      # Read and decode buffer with jpeg data.
+      self._interface.get_bytes(raw, 5000) 
       np_img = np.frombuffer(raw, dtype=np.uint8)
       img = cv2.imdecode(np_img, cv2.IMREAD_UNCHANGED)
       return FrameDump(img, np_img)
