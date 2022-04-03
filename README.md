@@ -2,3 +2,13 @@
 :floppy_disk: `l3xz_openmv_camera`
 ==================================
 ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/openmv-cam-h7-r2), including support for thermal vision with [FLIR Lepton adapter module](https://openmv.io/collections/cams/products/flir-lepton-adapter-module).
+
+# Setup
+
+## Prepare camera
+
+# Parameters
+
+# Published Topics
+
+# Services
