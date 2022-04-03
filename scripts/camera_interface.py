@@ -15,12 +15,12 @@ import io, serial, serial.tools.list_ports, socket, sys
 class FrameDump:
 
   def __init__(self, image, jpeg = None):
-    """Fills data of frame.
-    
-    Args:
-      image: Image as OpenCV numpy array.
-      jpeg: JPEG stream from camera.
-    """
+  """Fills data of frame.
+   
+  Args:
+    image: Image as OpenCV numpy array.
+    jpeg: JPEG stream from camera.
+  """
     self._height, self._width = image.shape[:2]
     self._pixels = image
     self._jpeg = jpeg
@@ -130,11 +130,11 @@ class OpenMvInterface:
     return result is not None
  
   def dump(self):
-    """Dumps RGB565 frame buffer from device.
-    
-    Returns:
-      FrameDump object with image.
-    """
+  """Dumps RGB565 frame buffer from device.
+  
+  Returns:
+    FrameDump object with image.
+  """
     result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor." + self._resolution)
     size = struct.unpack("<I", result)[0]
     raw = bytearray(size)
