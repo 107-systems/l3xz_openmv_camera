@@ -4,6 +4,7 @@
 import rospy
 import roslib
 from sensor_msgs.msg import Image
+from sensor_msgs.msg import CompressedImage
 from sensor_msgs.msg import CameraInfo 
 from l3xz_openmv_camera.srv import rgb, rgbResponse
 
@@ -16,6 +17,7 @@ import time
 
 omv_cam = None
 mutex = threading.Lock()
+
 def rgb_callback(request):
   global omv_cam
   global mutex
@@ -36,18 +38,26 @@ def main():
   rate = rospy.Rate(rospy.get_param("~rate_hz", 10))
 
   omv_cam = OpenMvInterface(rospy.get_param("~port", "/dev/ttyACM0"),
-     rospy.get_param("~camera_script", "/home/pi/catkin_ws/src/l3xz_openmv_camera/scripts/camera_script.py"))
+     rospy.get_param("~camera_script", "/home/pi/catkin_ws/src/l3xz_openmv_camera/scripts/camera_script.py"),
+     rospy.get_param("~resolution", "QQVGA"))
 
-  service = rospy.Service('rgb', rgb, rgb_callback)
+  service = rospy.Service(rospy.get_name() + '/rgb', rgb, rgb_callback)
 
-  img_name = rospy.get_param("~image_topic", "image_color")
+  img_name = rospy.get_name() + "/" + rospy.get_param("~image_topic", "image_color")
+  
   pub_image = rospy.Publisher(img_name,
           Image, queue_size = rospy.get_param("~image_queue", 1))
-  pub_info = rospy.Publisher(rospy.get_param("~info_topic", "camera_info"),
+
+  pub_image_compressed = rospy.Publisher(img_name + "_compressed",
+          CompressedImage, queue_size = rospy.get_param("~image_queue", 1))
+
+  pub_info = rospy.Publisher(rospy.get_name() + "/" + rospy.get_param("~info_topic", "camera_info"),
           CameraInfo, queue_size = rospy.get_param("~image_queue", 1))
 
   img_msg = Image()
   img_msg.header.frame_id = frame_id
+  img_compressed_msg = CompressedImage()
+  img_compressed_msg.header.frame_id = frame_id
 
   info_msg = CameraInfo()
   info_msg.header.frame_id = frame_id
@@ -61,11 +71,8 @@ def main():
       if show:
         cv2.imshow(img_name, framedump.pixels)
         cv2.waitKey(1)
-      time = rospy.Time.now()
-      img_msg.header.stamp = time 
       pub_image.publish(framedump.fill_img_msg(img_msg))
-
-      info_msg.header.stamp = time
+      pub_image_compressed.publish(framedump.fill_jpeg_msg(img_compressed_msg))
       pub_info.publish(framedump.fill_info_msg(info_msg))
       
     rate.sleep()
