@@ -19,12 +19,8 @@ def jpeg_image_read_cb():
     interface.put_bytes(sensor.get_fb().bytearray(), 5000) # timeout
 
 def jpeg_image_read(data):
-    if not len(data):
-        interface.schedule_callback(jpeg_image_read_cb)
-        return bytes()
-    else:
-        offset, size = struct.unpack("<II", data)
-        return memoryview(sensor.get_fb().bytearray())[offset:offset+size]
+    interface.schedule_callback(jpeg_image_read_cb)
+    return bytes()
 
 red_led = pyb.LED(1)
 green_led = pyb.LED(2)
