@@ -5,15 +5,19 @@ from sensor_msgs.msg import CameraInfo
 import cv2
 import numpy as np
 
+import struct 
 from openmv.tools import pyopenmv
+from openmv.tools.rpc import rpc 
+
+import io, serial, serial.tools.list_ports, socket, sys
+from enum import Enum
 
 class FrameDump:
 
-  def __init__(self, width, height, pixels):
-    self._width = width
-    self._height = height
-    self._pixels = pixels
-    
+  def __init__(self, image):
+    self._height, self._width = image.shape[:2]
+    self._pixels = image
+
   @property 
   def width(self):
     return self._width
@@ -47,23 +51,38 @@ class FrameDump:
 class OpenMvInterface:
 
   def __init__(self, port, script_file):
-    pyopenmv.disconnect()
-    pyopenmv.init(port, baudrate = 921600, timeout = 0.050)
-    pyopenmv.set_timeout(1 * 2)
-    pyopenmv.stop_script()
-    pyopenmv.enable_fb(True)
-    script = open(script_file, "r")
-    script_str = script.read()
-    script.close()
-    pyopenmv.exec_script(script_str)
+    self._interface = rpc.rpc_usb_vcp_master(port)
 
   def __del__(self):
-    pyopenmv.stop_script()
-    pyopenmv.disconnect()
+    pass
 
-  def dump(self):
-    fb =  pyopenmv.fb_dump()
-    if fb is not None:
-      return FrameDump(fb[0], fb[1], fb[2])
+  def rgb_led(self, r, g, b):
+    data = ""
+    if r:
+      data += "1,"
     else:
-      return None
+      data += "0,"
+    if g:
+      data += "1,"
+    else:
+      data += "0,"
+    if b:
+      data += "1"
+    else:
+      data += "0"
+ 
+    result = self._interface.call("rgb", data)
+    return result is not None
+  
+  def dump(self):
+    result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor.QQVGA")
+    size = struct.unpack("<I", result)[0]
+    raw = bytearray(size)
+    result = self._interface.call("jpeg_image_read")
+    
+    if result is not None:
+      self._interface.get_bytes(raw, 5000)
+      img = cv2.imdecode(np.frombuffer(raw, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+      return FrameDump(img)
+
+    return None

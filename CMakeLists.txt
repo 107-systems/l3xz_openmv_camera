@@ -19,10 +19,21 @@ endif()
 
 find_package(catkin REQUIRED COMPONENTS
   rospy
+  roscpp
+  std_msgs
+  message_generation
+)
+
+add_service_files(
+  FILES
+  rgb.srv
+)
+
+generate_messages(
+  DEPENDENCIES
   std_msgs
 )
 
-#catkin_python_setup()
 catkin_package(
   CATKIN_DEPENDS rospy std_msgs
 )
@@ -31,9 +42,12 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-install(DIRECTORY scripts/
-        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-        USE_SOURCE_PERMISSIONS)
-
 catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
+
