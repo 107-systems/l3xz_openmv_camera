@@ -38,16 +38,10 @@ catkin_package(
   CATKIN_DEPENDS rospy std_msgs
 )
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
-
+# Install executable
 catkin_install_python(PROGRAMS scripts/${PROJECT_NAME}_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*."
-  PATTERN ".svn" EXCLUDE
-)
-
+# Install dependencies
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/scripts/camera_interface.py DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/../../devel/lib/${PROJECT_NAME})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts/openmv DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/../../devel/lib/${PROJECT_NAME})
