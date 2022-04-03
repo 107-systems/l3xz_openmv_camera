@@ -11,11 +11,16 @@ from openmv.tools import pyopenmv
 from openmv.tools.rpc import rpc 
 
 import io, serial, serial.tools.list_ports, socket, sys
-from enum import Enum
 
 class FrameDump:
 
   def __init__(self, image, jpeg = None):
+    """Fills data of frame.
+    
+    Args:
+      image: Image as OpenCV numpy array.
+      jpeg: JPEG stream from camera.
+    """
     self._height, self._width = image.shape[:2]
     self._pixels = image
     self._jpeg = jpeg
@@ -34,6 +39,14 @@ class FrameDump:
     return self._pixels
 
   def fill_img_msg(self, msg = None):
+  """Fills data to ROS image message.
+  
+  Args:
+    msg: sensor_msgs/Image
+    
+  Returns:
+    Filled message.
+  """
     if msg is None:
       msg = Image()
     msg.header.stamp = self._stamp 
@@ -45,6 +58,14 @@ class FrameDump:
     return msg
 
   def fill_jpeg_msg(self, msg = None):
+  """Fills data to ROS compressed image message.
+  
+  Args:
+    msg: sensor_msgs/CompressedImage
+    
+  Returns:
+    Filled message.
+  """
     if msg is None:
       msg = CompressedImage()
     msg.header.stamp = self._stamp
@@ -53,6 +74,14 @@ class FrameDump:
     return msg
 
   def fill_info_msg(self, msg = None):
+  """Fills data to ROS camera info message.
+  
+  Args:
+    msg: sensor_msgs/CameraInfo
+    
+  Returns:
+    Filled message.
+  """
     if msg is None:
       msg = CameraInfo()
     msg.header.stamp = self._stamp
@@ -63,6 +92,12 @@ class FrameDump:
 class OpenMvInterface:
 
   def __init__(self, port, resolution = "QQVGA"):
+  """Interfaces camera via openmv rpc calls.
+   
+  Args:
+    port: Serial port device.
+    resolution: Camera resolution (QQVGA or QVGA)
+  """
     self._resolution = resolution
     self._interface = rpc.rpc_usb_vcp_master(port)
 
@@ -70,6 +105,13 @@ class OpenMvInterface:
     pass
 
   def rgb_led(self, r, g, b):
+  """Sets RGB LED
+  
+  Args:
+    r: Enable red.
+    g: Enable green.
+    b: Enable blue.
+  """
     data = ""
     if r:
       data += "1,"
@@ -88,6 +130,11 @@ class OpenMvInterface:
     return result is not None
  
   def dump(self):
+    """Dumps RGB565 frame buffer from device.
+    
+    Returns:
+      FrameDump object with image.
+    """
     result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor." + self._resolution)
     size = struct.unpack("<I", result)[0]
     raw = bytearray(size)
