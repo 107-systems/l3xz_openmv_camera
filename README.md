@@ -16,6 +16,10 @@ Ubuntu 20.04 LTS, [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/
 3) Unmount camera
 4) Reconnect camera
 
+## Additional dependencies
+
+[openmv](https://github.com/openmv/openmv/) (Automatically installed as submodule during build)
+
 ## Build Node
 ```bash
 source /opt/ros/noetic/setup.bash
