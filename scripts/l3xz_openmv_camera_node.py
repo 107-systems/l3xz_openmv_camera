@@ -24,7 +24,6 @@ def rgb_callback(request):
   mutex.acquire()
   success = omv_cam.rgb_led(request.r, request.g, request.b)
   mutex.release()
-  print(success)
   return rgbResponse(success)
 
 def main():
@@ -38,7 +37,6 @@ def main():
   rate = rospy.Rate(rospy.get_param("~rate_hz", 10))
 
   omv_cam = OpenMvInterface(rospy.get_param("~port", "/dev/ttyACM0"),
-     rospy.get_param("~camera_script", "/home/pi/catkin_ws/src/l3xz_openmv_camera/scripts/camera_script.py"),
      rospy.get_param("~resolution", "QQVGA"))
 
   service = rospy.Service(rospy.get_name() + '/rgb', rgb, rgb_callback)

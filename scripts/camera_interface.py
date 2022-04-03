@@ -62,7 +62,7 @@ class FrameDump:
 
 class OpenMvInterface:
 
-  def __init__(self, port, script_file, resolution = "QQVGA"):
+  def __init__(self, port, resolution = "QQVGA"):
     self._resolution = resolution
     self._interface = rpc.rpc_usb_vcp_master(port)
 

@@ -54,4 +54,4 @@ catkin_make
 | port | /dev/ttyACM0 | Serial port of camera |
 | rate_hz | 10 | fps |
 | frame_id | odom | camera tf frame |
-| resolution | QVGA | image resolution |
+| resolution | QQVGA | image resolution |

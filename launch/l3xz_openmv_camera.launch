@@ -5,7 +5,7 @@
   <param name="show_image" value="false"/>
   <param name="image_queue" value="1"/>
   <param name="info_queue" value="1"/>
-  <param name="camera_script" value="/home/pi/catkin_ws/src/l3xz_openmv_camera/scripts/camera_script.py"/>
+  <param name="resolution" value="QQVGA"/>
   <param name="port" value="/dev/ttyACM0"/>
   <param name="rate_hz" value="10"/>
   <param name="frame_id" value="odom"/>
