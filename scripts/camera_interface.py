@@ -136,15 +136,17 @@ class OpenMvInterface:
       FrameDump object with image.
     """
     result = self._interface.call("jpeg_image_snapshot", "sensor.RGB565,sensor." + self._resolution) # Initiate snapshot.
-    size = struct.unpack("<I", result)[0]
-    raw = bytearray(size)
-    result = self._interface.call("jpeg_image_read") # Fill buffer.
     
     if result is not None:
-      # Read and decode buffer with jpeg data.
-      self._interface.get_bytes(raw, 5000) 
-      np_img = np.frombuffer(raw, dtype=np.uint8)
-      img = cv2.imdecode(np_img, cv2.IMREAD_UNCHANGED)
-      return FrameDump(img, np_img)
+      size = struct.unpack("<I", result)[0]
+      raw = bytearray(size)
+      isData = self._interface.call("jpeg_image_read") # Fill buffer.
+      
+      if isData is not None:
+        # Read and decode buffer with jpeg data.
+        self._interface.get_bytes(raw, 5) 
+        np_img = np.frombuffer(raw, dtype=np.uint8)
+        img = cv2.imdecode(np_img, cv2.IMREAD_UNCHANGED)
+        return FrameDump(img, np_img)
 
     return None
