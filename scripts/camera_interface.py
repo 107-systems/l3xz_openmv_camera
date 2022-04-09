@@ -1,16 +1,21 @@
+'''
+This software is distributed under the terms of the MIT License.
+Copyright (c) 2022 107-Systems
+Author: Jonas Wühr
+'''
+import cv2
+import numpy as np
+import struct 
+import io, serial, serial.tools.list_ports, socket, sys
+
 import rospy
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CompressedImage 
 from sensor_msgs.msg import CameraInfo 
 
-import cv2
-import numpy as np
-
 import struct 
 from openmv.tools import pyopenmv
 from openmv.tools.rpc import rpc 
-
-import io, serial, serial.tools.list_ports, socket, sys
 
 class FrameDump:
 

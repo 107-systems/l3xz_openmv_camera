@@ -1,3 +1,7 @@
+#This software is distributed under the terms of the MIT License.
+#Copyright (c) 2022 107-Systems
+#Author: Jonas Wühr
+
 cmake_minimum_required(VERSION 3.0.2)
 
 project(l3xz_openmv_camera)

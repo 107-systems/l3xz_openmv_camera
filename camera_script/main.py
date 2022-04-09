@@ -1,3 +1,8 @@
+'''
+This software is distributed under the terms of the MIT License.
+Copyright (c) 2022 107-Systems
+Author: Jonas Wühr
+'''
 import image, network, omv, rpc, sensor, struct, pyb
 
 sensor.reset()
@@ -5,8 +10,9 @@ sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time = 2000)
 
-omv.disable_fb(True)
-interface = rpc.rpc_usb_vcp_slave()
+omv.disable_fb(True) # Disable IDE framedump
+
+interface = rpc.rpc_usb_vcp_slave() # Open slave
 
 def jpeg_image_snapshot(data): # Snapshot rpc callback
     pixformat, framesize = bytes(data).decode().split(",")

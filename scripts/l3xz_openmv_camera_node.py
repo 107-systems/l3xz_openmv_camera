@@ -1,19 +1,24 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
+'''
+This software is distributed under the terms of the MIT License.
+Copyright (c) 2022 107-Systems
+Author: Jonas Wühr
+'''
+
+import threading
+import cv2
+import numpy as np
+import time
 
 import rospy
 import roslib
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CompressedImage
 from sensor_msgs.msg import CameraInfo 
+
 from l3xz_openmv_camera.srv import rgb, rgbResponse
-
-import threading
-import cv2
-import numpy as np
 from camera_interface import OpenMvInterface
-
-import time
 
 omv_cam = None
 mutex = threading.Lock() # Mutex for asynchronous services and publishing.
@@ -31,7 +36,7 @@ def main():
   # Initialize node, camera, services, publishers and subscribers with parameters.
   rospy.init_node('openmv')
 
-  frame_id = rospy.get_param("~frame_id", "odom")
+  frame_id = rospy.get_param("~frame_id", "openmv_camera_frame")
 
   show = rospy.get_param("~show_image", False)
 
