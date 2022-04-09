@@ -5,6 +5,7 @@
   <description>driver package for OpenMV camera</description>
   <license>MIT</license>
   <author>Jonas Wühr</author>
+  <maintainer email="jonas@maintainer.com">Jonas Wühr</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>image_transport</build_depend>
