@@ -57,5 +57,5 @@ catkin_make
 | show_image | false | Show RGB image in OpenCV window |
 | port | /dev/ttyACM0 | Serial port of camera |
 | rate_hz | 10 | fps |
-| frame_id | odom | camera tf frame |
+| frame_id | openmv_camera_frame | camera tf frame |
 | resolution | QQVGA | image resolution |
