@@ -75,7 +75,7 @@ class FrameDump:
       msg = CompressedImage()
     msg.header.stamp = self._stamp
     msg.format = "jpeg"
-    msg.data = self._jpeg
+    msg.data = self._jpeg.tostring()
     return msg
 
   def fill_info_msg(self, msg = None):
