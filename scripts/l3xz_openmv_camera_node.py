@@ -11,6 +11,10 @@ import cv2
 import numpy as np
 import time
 
+import os
+if 'ROS_NAMESPACE' not in os.environ:
+  os.environ['ROS_NAMESPACE'] = 'l3xz'
+
 import rospy
 import roslib
 from sensor_msgs.msg import Image
