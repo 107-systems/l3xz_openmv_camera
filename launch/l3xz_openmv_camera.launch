@@ -1,5 +1,5 @@
 <launch>
-<node pkg="l3xz_openmv_camera" type="l3xz_openmv_camera_node.py" name="openmv" output="screen">
+<node pkg="l3xz_openmv_camera" type="l3xz_openmv_camera_node.py" name="openmv" output="screen" ns="l3xz">
   <param name="image_topic" value="image_color"/>
   <param name="info_topic" value="camera_info"/>
   <param name="show_image" value="false"/>
