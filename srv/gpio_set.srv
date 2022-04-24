@@ -1,0 +1,4 @@
+int8 nr
+bool on
+---
+bool success

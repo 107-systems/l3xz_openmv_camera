@@ -2,12 +2,13 @@
 <node pkg="l3xz_openmv_camera" type="l3xz_openmv_camera_node.py" name="openmv" output="screen" ns="l3xz">
   <param name="image_topic" value="image_color"/>
   <param name="info_topic" value="camera_info"/>
-  <param name="show_image" value="false"/>
+  <param name="show_image" value="true"/>
   <param name="image_queue" value="1"/>
   <param name="info_queue" value="1"/>
-  <param name="resolution" value="QQVGA"/>
+  <param name="resolution" value="QVGA"/>
   <param name="port" value="/dev/ttyACM0"/>
-  <param name="rate_hz" value="10"/>
+  <param name="frames_hz" value="10"/>
+  <param name="gpio_hz" value="1"/>
   <param name="frame_id" value="openmv_camera_frame"/>
 </node>
 </launch>

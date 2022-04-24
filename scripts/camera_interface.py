@@ -103,11 +103,17 @@ class OpenMvInterface:
       port: Serial port device.
       resolution: Camera resolution (QQVGA or QVGA)
     """
+    assert resolution == "QVGA" or resolution == "QQVGA"
     self._resolution = resolution
     self._interface = rpc.rpc_usb_vcp_master(port) # Connect via rpc.
+    self._inputs = []
 
   def __del__(self):
     pass
+
+  @property
+  def inputs(self):
+    return self._inputs
 
   def rgb_led(self, r, g, b):
     """Sets RGB LED
@@ -116,6 +122,9 @@ class OpenMvInterface:
       r: Enable red.
       g: Enable green.
       b: Enable blue.
+
+    Returns:
+      True for success
     """
     data = ""
     if r:
@@ -131,9 +140,80 @@ class OpenMvInterface:
     else:
       data += "0"
  
-    result = self._interface.call("rgb", data) # Do rpc call.
+    result = self._interface.call("rgb", struct.pack("<???", r, g, b))
+    return result is not None
+  
+  def ir_led(self, enable):
+    """Sets IR LED
+  
+    Args:
+      enable: Enable led.
+    
+    Returns:
+      True for success
+    """
+    result = self._interface.call("ir", struct.pack("<?", enable))
+    return result is not None
+
+  def gpio_config(self, pin, output, opendrain, pullup, pulldown):
+    """Configures GPIO
+  
+    Args:
+      pin: Pin number from P0 to P9
+      output: Input/ Output
+      opendrain
+      pullup
+      pulldown
+    
+    Returns:
+      True for success
+    """
+    assert (not pullup and not pulldown) or (pullup != pulldown) or opendrain 
+    result = self._interface.call("gpio_config", struct.pack("<bbbbb", pin, output, opendrain, pullup, pulldown))
+    if result is not None:
+      for i in self._inputs:
+        if pin == i[0]:
+          self._inputs.remove(i)
+      if not output:
+        self._inputs.append([pin, False])
+      return True
+    else:
+      return False
+
+  def gpio_set(self, pin, value):
+    """Set GPIO output
+  
+    Args:
+      pin: Pin number from P0 to P9
+      output: High/ low 
+    
+    Returns:
+      True for success
+    """
+    result = self._interface.call("gpio_set", struct.pack("<bb", pin, value))
     return result is not None
  
+  def gpio_poll(self, pin):
+    """Poll GPIO input
+  
+    Args:
+      pin: Pin number from P0 to P9
+    
+    Returns:
+      High/ low 
+    """
+    result = self._interface.call("gpio_poll", str(pin)) 
+    if result:
+      val = struct.unpack("<b", result)[0]
+    else:
+      val = -1
+    return val
+  
+  def gpio_poll_inputs(self):
+    """Polls all configured GPIOs."""
+    for gpio in self._inputs:
+      gpio[1] = self.gpio_poll(gpio[0])
+
   def dump(self):
     """Dumps RGB565 frame buffer from device.
   
