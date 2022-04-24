@@ -37,7 +37,7 @@ blue_led.off()
 ir_led.off()
 
 def rgb(data): # RGB LED callback
-    r, g, b = struct.unpack("<???", data)
+    r, g, b = struct.unpack("<bbb", data)
     if r:
         red_led.on()
     else:
@@ -54,7 +54,7 @@ def rgb(data): # RGB LED callback
     return bytes()
 
 def ir(data): # IR LED callback
-    state = struct.unpack("<?", data) 
+    state = struct.unpack("<b", data) 
     if state:
         ir_led.on()
     else:

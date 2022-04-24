@@ -126,21 +126,7 @@ class OpenMvInterface:
     Returns:
       True for success
     """
-    data = ""
-    if r:
-      data += "1,"
-    else:
-      data += "0,"
-    if g:
-      data += "1,"
-    else:
-      data += "0,"
-    if b:
-      data += "1"
-    else:
-      data += "0"
- 
-    result = self._interface.call("rgb", struct.pack("<???", r, g, b))
+    result = self._interface.call("rgb", struct.pack("<bbb", r, g, b))
     return result is not None
   
   def ir_led(self, enable):
@@ -152,7 +138,7 @@ class OpenMvInterface:
     Returns:
       True for success
     """
-    result = self._interface.call("ir", struct.pack("<?", enable))
+    result = self._interface.call("ir", struct.pack("<b", enable))
     return result is not None
 
   def gpio_config(self, pin, output, opendrain, pullup, pulldown):
