@@ -18,49 +18,51 @@ Ubuntu 20.04 LTS, [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/
 
 ## Additional dependencies
 
-[openmv](https://github.com/openmv/openmv/) (Automatically installed as submodule during build)
+* [openmv](https://github.com/openmv/openmv): Automatically installed as submodule during build.
 
-## Build Node
+### How-to-build
 ```bash
-source /opt/ros/noetic/setup.bash
-# Prepare catkin workspace (only need to be done once)
-mkdir -p catkin_ws/src && cd catkin_ws
-catkin_make
 # Clone this repository
-cd src && git clone https://github.com/107-systems/l3xz_openmv_camera && cd ..
+git clone https://github.com/107-systems/l3xz_openmv_camera
 # Invoke catkin_make from the catkin workspace root.
+source /opt/ros/noetic/setup.bash
 catkin_make
 ```
 
-# Published Topics
+### How-to-run
+```bash
+source devel/setup.bash
+roslaunch l3xz_openmv_camera l3xz_openmv_camera.launch
+```
 
+### Interface Documentation
+#### Published Topics
 | Default name | Type | Description |
-| ------------ | ---- | ----------- |
-| /l3xz/openmv/image_color | sensor_msgs/Image | Camera image |
-| /l3xz/openmv/image_color_compressed | sensor_msgs/CompressedImage | JPEG compressed image |
-| /l3xz/openmv_camera_info | sensor_msgs/CameraInfo | Camera info |
-| /l3xz/openmv/input_n | std_msgs/Bool | State of GPIO configured as input |
+|:-:|:-:|-|
+| `/l3xz/openmv/image_color` | [`sensor_msgs/Image`](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html) | Camera image |
+| `/l3xz/openmv/image_color_compressed` | [`sensor_msgs/CompressedImage`](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/CompressedImage.html) | JPEG compressed image |
+| `/l3xz/openmv_camera_info` | [`sensor_msgs/CameraInfo`](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/CameraInfo.html) | Camera info |
+| `/l3xz/openmv/input_n` | [`std_msgs/Bool`](https://docs.ros.org/en/noetic/api/std_msgs/html/msg/Bool.html) | State of GPIO configured as input |
 
-# Services
-
+#### Services
 | Default name | Description |
-| ------------ | ----------- |
-| /l3xz/openmv/rgb | Set binary values to RGB LED |
-| /l3xz/openmv/ir | Set IR LED |
-| /l3xz/openmv/gpio_config | Configure GPIO pin |
-| /l3xz/openmv/gpio_set | Set GPIO pin configured as output |
+|:-:|:-:|
+| `/l3xz/openmv/rgb` | Set binary values to RGB LED |
+| `/l3xz/openmv/ir` | Set IR LED |
+| `/l3xz/openmv/gpio_config` | Configure GPIO pin |
+| `/l3xz/openmv/gpio_set` | Set GPIO pin configured as output |
 
-# Parameters
-
+#### Parameters
 | Name | Default | Description |
-| ---- | ------- | ----------- |
-| image_topic | image_color | RGB image |
-| image_queue | 1 | Queue size for RGB image topic |
-| info_topic | camera_info | Camera configuration |
-| info_queue | 1 | Queue size for camera info topic |
-| show_image | false | Show RGB image in OpenCV window |
-| port | /dev/ttyACM0 | Serial port of camera |
-| frames_hz | 10 | fps |
-| gpio_hz | 1 | GPIO update rate |
-| frame_id | openmv_camera_frame | camera tf frame |
-| resolution | QQVGA | image resolution |
+|:-:|:-:|-|
+| `image_topic` | `image_color` | RGB image |
+| `image_queue` | 1 | Queue size for RGB image topic |
+| `info_topic` | `camera_info` | Camera configuration |
+| `info_queue` | 1 | Queue size for camera info topic |
+| `show_image` | `false` | Show RGB image in OpenCV window |
+| `port` | `/dev/ttyACM0` | Serial port of camera |
+| `frames_hz` | 10 | fps |
+| `gpio_hz` | 1 | GPIO update rate |
+| `frame_id` | `openmv_camera_frame` | camera tf frame |
+| `resolution` | `QQVGA` | image resolution |
+
