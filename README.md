@@ -34,17 +34,21 @@ catkin_make
 
 # Published Topics
 
-| Default name | Type |
-| ------------ | ---- |
-| /openmv/image_color | sensor_msgs/Image |
-| /openmv/image_color_compressed | sensor_msgs/CompressedImage |
-| /openmv_camera_info | sensor_msgs/CameraInfo |
+| Default name | Type | Description |
+| ------------ | ---- | ----------- |
+| /l3xz/openmv/image_color | sensor_msgs/Image | Camera image |
+| /l3xz/openmv/image_color_compressed | sensor_msgs/CompressedImage | JPEG compressed image |
+| /l3xz/openmv_camera_info | sensor_msgs/CameraInfo | Camera info |
+| /l3xz/openmv/input_n | std_msgs/Bool | State of GPIO configured as input |
 
 # Services
 
 | Default name | Description |
 | ------------ | ----------- |
-| /openmv/rgb | Set binary values to RGB LED |
+| /l3xz/openmv/rgb | Set binary values to RGB LED |
+| /l3xz/openmv/ir | Set IR LED |
+| /l3xz/openmv/gpio_config | Configure GPIO pin |
+| /l3xz/openmv/gpio_set | Set GPIO pin configured as output |
 
 # Parameters
 
@@ -56,6 +60,7 @@ catkin_make
 | info_queue | 1 | Queue size for camera info topic |
 | show_image | false | Show RGB image in OpenCV window |
 | port | /dev/ttyACM0 | Serial port of camera |
-| rate_hz | 10 | fps |
+| frames_hz | 10 | fps |
+| gpio_hz | 1 | GPIO update rate |
 | frame_id | openmv_camera_frame | camera tf frame |
 | resolution | QQVGA | image resolution |
