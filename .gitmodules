@@ -1,3 +1,0 @@
-[submodule "scripts/openmv"]
-	path = scripts/openmv
-	url = git@github.com:openmv/openmv.git
