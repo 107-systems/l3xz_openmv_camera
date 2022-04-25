@@ -3,6 +3,8 @@
 ==================================
 ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/openmv-cam-h7-r2), including support for thermal vision with [FLIR Lepton adapter module](https://openmv.io/collections/cams/products/flir-lepton-adapter-module).
 
+![RGB camera](doc/img/rgb.png)
+![thermal camera](doc/img/thermal.png)
 # Setup
 
 #### Target (Robot)
