@@ -54,7 +54,7 @@ def rgb(data): # RGB LED callback
     return bytes()
 
 def ir(data): # IR LED callback
-    state = struct.unpack("<b", data) 
+    state = "1" == bytes(data).decode() 
     if state:
         ir_led.on()
     else:
@@ -72,14 +72,14 @@ def gpio_config(data): # GPIO configuration callback
             pin_config = pyb.Pin(pin_nr, pyb.Pin.OUT_OD)
         elif pullup:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.OUT_PP, pyb.Pin.PULL_UP)
-        elif puldown:
+        elif pulldown:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.OUT_PP, pyb.Pin.PULL_DOWN)
         else:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.OUT_PP, pyb.Pin.PULL_NONE)
     else:
         if pullup:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.IN, pyb.Pin.PULL_UP)
-        elif puldown:
+        elif pulldown:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.IN, pyb.Pin.PULL_DOWN)
         else:
             pin_config = pyb.Pin(pin_nr, pyb.Pin.IN, pyb.Pin.PULL_NONE)

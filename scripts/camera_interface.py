@@ -138,7 +138,13 @@ class OpenMvInterface:
     Returns:
       True for success
     """
-    result = self._interface.call("ir", struct.pack("<b", enable))
+    data = ""
+    if enable:
+      data = "1"
+    else:
+      data = "0"
+
+    result = self._interface.call("ir", data)
     return result is not None
 
   def gpio_config(self, pin, output, opendrain, pullup, pulldown):
