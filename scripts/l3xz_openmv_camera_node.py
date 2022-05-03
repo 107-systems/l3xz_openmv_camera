@@ -22,7 +22,7 @@ from sensor_msgs.msg import CompressedImage
 from sensor_msgs.msg import CameraInfo 
 from std_msgs.msg import Bool
 
-from l3xz_openmv_camera.srv import rgb, rgbResponse, ir, irResponse, gpio, gpioResponse, gpio_set, gpio_setResponse
+from l3xz_openmv_camera.srv import Rgb, RgbResponse, Ir, IrResponse, Gpio, GpioResponse, GpioSet, GpioSetResponse
 from camera_interface import OpenMvInterface
 
 omv_cam = None
@@ -35,7 +35,7 @@ def rgb_callback(request): # rgb service implementation
   mutex.acquire()
   success = omv_cam.rgb_led(request.r, request.g, request.b)
   mutex.release()
-  return rgbResponse(success)
+  return RgbResponse(success)
 
 def ir_callback(request): # ir service implementation
   global omv_cam
@@ -43,7 +43,7 @@ def ir_callback(request): # ir service implementation
   mutex.acquire()
   success = omv_cam.ir_led(request.on)
   mutex.release()
-  return irResponse(success)
+  return IrResponse(success)
 
 def gpio_callback(request): # GPIO config service
   global omv_cam
@@ -63,7 +63,7 @@ def gpio_callback(request): # GPIO config service
         break
     if not found and not request.output:
       pub_inputs.append([request.nr, rospy.Publisher(rospy.get_name() + "/input_" + str(request.nr), Bool, queue_size = 1)]) 
-  return gpioResponse(success)
+  return GpioResponse(success)
 
 def gpio_set_callback(request): # GPIO output service
   global omv_cam
@@ -71,7 +71,7 @@ def gpio_set_callback(request): # GPIO output service
   mutex.acquire()
   success = omv_cam.gpio_set(request.nr, request.on)
   mutex.release()
-  return gpio_setResponse(success)
+  return GpioSetResponse(success)
 
 def main():
   global omv_cam
@@ -93,10 +93,10 @@ def main():
   omv_cam = OpenMvInterface(rospy.get_param("~port", "/dev/ttyACM0"),
      rospy.get_param("~resolution", "QQVGA"))
 
-  service_rgb = rospy.Service(rospy.get_name() + '/rgb', rgb, rgb_callback)
-  service_ir = rospy.Service(rospy.get_name() + '/ir', ir, ir_callback)
-  service_gpio = rospy.Service(rospy.get_name() + '/gpio_config', gpio, gpio_callback)
-  service_gpio_set = rospy.Service(rospy.get_name() + '/gpio_set', gpio_set, gpio_set_callback)
+  service_rgb = rospy.Service(rospy.get_name() + '/rgb', Rgb, rgb_callback)
+  service_ir = rospy.Service(rospy.get_name() + '/ir', Ir, ir_callback)
+  service_gpio = rospy.Service(rospy.get_name() + '/gpio_config', Gpio, gpio_callback)
+  service_gpio_set = rospy.Service(rospy.get_name() + '/gpio_set', GpioSet, gpio_set_callback)
 
   img_name = rospy.get_name() + "/" + rospy.get_param("~image_topic", "image_color")
  

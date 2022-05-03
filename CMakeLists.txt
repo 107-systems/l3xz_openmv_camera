@@ -30,10 +30,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_service_files(
   FILES
-  rgb.srv
-  ir.srv
-  gpio.srv
-  gpio_set.srv
+  Rgb.srv
+  Ir.srv
+  Gpio.srv
+  GpioSet.srv
 )
 
 generate_messages(
