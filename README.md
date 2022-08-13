@@ -25,15 +25,15 @@ Ubuntu 20.04 LTS, [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/
 ```bash
 # Clone this repository
 git clone https://github.com/107-systems/l3xz_openmv_camera
-# Invoke catkin_make from the catkin workspace root.
-source /opt/ros/noetic/setup.bash
-catkin_make
+# Build the package
+source /opt/ros/galactic/setup.bash
+colcon build
 ```
 
 ### How-to-run
 ```bash
-source devel/setup.bash
-roslaunch l3xz_openmv_camera l3xz_openmv_camera.launch
+source install/setup.bash
+ros2 run l3xz_openmv_camera l3xz_openmv_camera
 ```
 
 ### Interface Documentation

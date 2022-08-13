@@ -12,6 +12,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
+    include_package_data=True,
+    package_dir={"l3xz_openmv_camera.openmv": "l3xz_openmv_camera/openmv/tools/rpc"},
     zip_safe=True,
     maintainer='root',
     maintainer_email='root@todo.todo',
@@ -20,6 +22,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'l3xz_openmv_camera = l3xz_openmv_camera.l3xz_openmv_camera:main',
         ],
     },
 )
