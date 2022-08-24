@@ -7,7 +7,10 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
   <a href="https://github.com/107-systems/l3xz"><img src="https://raw.githubusercontent.com/107-systems/.github/main/logo/l3xz-logo-memento-mori-github.png" width="40%"></a>
 </p>
 
-<img src="doc/img/rgb.png" width="300" height="300"> <img src="doc/img/thermal.png" width="300" height="300">
+<p align="center">
+  <img src="doc/img/rgb.png" width="300" height="300"><img src="doc/img/thermal.png" width="300" height="300">
+</p>
+ 
 # Setup
 
 #### Target (Robot)
