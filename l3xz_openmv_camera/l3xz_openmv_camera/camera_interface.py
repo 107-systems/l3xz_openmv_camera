@@ -8,13 +8,12 @@ import numpy as np
 import struct 
 import io, serial, serial.tools.list_ports, socket, sys
 
-import rospy
+import rclpy
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CompressedImage 
 from sensor_msgs.msg import CameraInfo 
 
 import struct 
-from openmv.tools import pyopenmv
 from openmv.tools.rpc import rpc 
 
 class FrameDump:
@@ -29,7 +28,7 @@ class FrameDump:
     self._height, self._width = image.shape[:2]
     self._pixels = image
     self._jpeg = jpeg
-    self._stamp = rospy.Time.now()
+    self._stamp = rclpy.clock.Clock().now()
 
   @property 
   def width(self):
@@ -54,7 +53,7 @@ class FrameDump:
     """
     if msg is None:
       msg = Image()
-    msg.header.stamp = self._stamp 
+    msg.header.stamp = self._stamp.to_msg()
     msg.encoding = "bgr8"
     msg.step = 3 * self._width 
     msg.width = self._width 
@@ -73,7 +72,7 @@ class FrameDump:
     """
     if msg is None:
       msg = CompressedImage()
-    msg.header.stamp = self._stamp
+    msg.header.stamp = self._stamp.to_msg()
     msg.format = "jpeg"
     msg.data = self._jpeg.tostring()
     return msg
@@ -89,7 +88,7 @@ class FrameDump:
     """
     if msg is None:
       msg = CameraInfo()
-    msg.header.stamp = self._stamp
+    msg.header.stamp = self._stamp.to_msg()
     msg.width = self._width
     msg.height = self._height
     return msg

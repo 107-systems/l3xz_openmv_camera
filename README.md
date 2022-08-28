@@ -14,9 +14,7 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 # Setup
 
 #### Target (Robot)
-[Raspberry Pi 4/8 GB](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/), [Buster](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-legacy), [ROS Noetic Ninjemys](https://varhowto.com/install-ros-noetic-raspberry-pi-4/).
-#### Host (Devlopment PC)
-Ubuntu 20.04 LTS, [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/Ubuntu).
+[ROS Galactic Geochelone](https://docs.ros.org/en/foxy/Releases/Release-Galactic-Geochelone.html)
 
 ## Prepare camera
 1) Connect camera via USB
@@ -32,15 +30,15 @@ Ubuntu 20.04 LTS, [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/
 ```bash
 # Clone this repository
 git clone https://github.com/107-systems/l3xz_openmv_camera
-# Invoke catkin_make from the catkin workspace root.
-source /opt/ros/noetic/setup.bash
-catkin_make
+# Build the package
+source /opt/ros/galactic/setup.bash
+colcon build
 ```
 
 ### How-to-run
 ```bash
-source devel/setup.bash
-roslaunch l3xz_openmv_camera l3xz_openmv_camera.launch
+source install/setup.bash
+ros2 run l3xz_openmv_camera l3xz_openmv_camera
 ```
 
 ### Interface Documentation
