@@ -4,8 +4,8 @@
   <name>l3xz_openmv_camera_interfaces</name>
   <version>1.0.0</version>
   <description>l3xz openmv camera custom interfaces</description>
-  <maintainer email="jonas@maintainer.com">Jonas Wühr</maintainer>
-  <license>Apache License 2.0</license>
+  <maintainer email="jonaswuehrmaintainer@gmail.com">Jonas Wuehr</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <depend>rclcpp</depend>
