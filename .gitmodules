@@ -1,3 +1,6 @@
 [submodule "scripts/openmv"]
 	path = scripts/openmv
 	url = https://github.com/openmv/openmv
+[submodule "l3xz_openmv_camera/l3xz_openmv_camera/openmv"]
+	path = l3xz_openmv_camera/l3xz_openmv_camera/openmv
+	url = https://github.com/openmv/openmv

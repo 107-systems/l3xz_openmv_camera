@@ -1,4 +1,7 @@
 **.swp
 **.swn
 **.swo
+**/build
+**/install
+**/log
 __pycache__
