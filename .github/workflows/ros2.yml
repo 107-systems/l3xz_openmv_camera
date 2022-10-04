@@ -29,11 +29,6 @@ jobs:
         
     - uses: actions/checkout@v2
       with:
-        repository: '107-systems/l3xz_openmv_camera'
-        path: 'ros2_ws/src/l3xz_openmv_camera'
-        
-    - uses: actions/checkout@v2
-      with:
         path: 'ros2_ws/src/l3xz_openmv_camera'
         
     - name: colcon build
