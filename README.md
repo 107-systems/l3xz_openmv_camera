@@ -26,7 +26,7 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 
 ## Additional dependencies
 
-* [openmv](https://github.com/openmv/openmv)
+* [openmv](https://github.com/openmv/openmv) as submodule
 
 ### How-to-build
 ```bash
