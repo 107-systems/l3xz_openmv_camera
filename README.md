@@ -1,6 +1,8 @@
 <a href="https://107-systems.org/"><img align="right" src="https://raw.githubusercontent.com/107-systems/.github/main/logo/107-systems.png" width="15%"></a>
 :floppy_disk: `l3xz_openmv_camera`
 ==================================
+[![Build Status](https://github.com/107-systems/l3xz_openmv_camera/actions/workflows/ros2.yml/badge.svg)](https://github.com/107-systems/l3xz_openmv_camera/actions/workflows/ros2.yml)
+
 ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/openmv-cam-h7-r2), including support for thermal vision with [FLIR Lepton adapter module](https://openmv.io/collections/cams/products/flir-lepton-adapter-module).
 
 <p align="center">
@@ -24,7 +26,7 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 
 ## Additional dependencies
 
-* [openmv](https://github.com/openmv/openmv): Automatically installed as submodule during build.
+* [openmv](https://github.com/openmv/openmv) as submodule
 
 ### How-to-build
 ```bash

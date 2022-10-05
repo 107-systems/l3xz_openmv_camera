@@ -1,0 +1,40 @@
+name: ros2
+
+on:
+  push:
+  pull_request:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    name: Build on ros2 ${{ matrix.ros_distro }}
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        ros_distro: [foxy, galactic]
+
+    steps:   
+    - uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: ${{ matrix.ros_distro }}
+    
+    - name: Setup ros2 workspace
+      run: | 
+        source /opt/ros/${{ matrix.ros_distro }}/setup.bash
+        mkdir -p ${{github.workspace}}/ros2_ws/src
+        cd ${{github.workspace}}/ros2_ws
+        colcon build
+        
+    - uses: actions/checkout@v3
+      with:
+        path: 'ros2_ws/src/l3xz_openmv_camera'
+        
+    - name: colcon build
+      run: |
+        cd ${{github.workspace}}/ros2_ws/src/l3xz_openmv_camera
+        git submodule update --init
+        source /opt/ros/${{ matrix.ros_distro }}/setup.bash
+        cd ${{github.workspace}}/ros2_ws
+        colcon build --event-handlers console_direct+
