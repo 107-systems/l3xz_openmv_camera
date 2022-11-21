@@ -2,7 +2,21 @@ name: ros2
 
 on:
   push:
+    paths:
+      - ".github/workflows/ros2.yml"
+      - "include/**"
+      - "launch/**"
+      - "src/**"
+      - "CMakeLists.txt"
+      - "package.xml"
   pull_request:
+    paths:
+      - ".github/workflows/ros2.yml"
+      - "include/**"
+      - "launch/**"
+      - "src/**"
+      - "CMakeLists.txt"
+      - "package.xml"
 
 env:
   BUILD_TYPE: Release
@@ -13,7 +27,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        ros_distro: [foxy, galactic]
+        ros_distro: [ galactic ]
 
     steps:   
     - uses: ros-tooling/setup-ros@v0.4
