@@ -2,7 +2,21 @@ name: ros2
 
 on:
   push:
+    paths:
+      - ".github/workflows/ros2.yml"
+      - "include/**"
+      - "launch/**"
+      - "src/**"
+      - "CMakeLists.txt"
+      - "package.xml"
   pull_request:
+    paths:
+      - ".github/workflows/ros2.yml"
+      - "include/**"
+      - "launch/**"
+      - "src/**"
+      - "CMakeLists.txt"
+      - "package.xml"
 
 env:
   BUILD_TYPE: Release
