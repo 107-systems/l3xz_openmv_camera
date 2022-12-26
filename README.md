@@ -34,7 +34,7 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 # Clone this repository
 git clone https://github.com/107-systems/l3xz_openmv_camera
 cd l3xz_openmv_camera
-git submodule update --init
+git submodule update --init --progress --depth 1
 # Build the package
 source /opt/ros/galactic/setup.bash
 colcon build
