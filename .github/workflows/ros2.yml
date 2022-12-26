@@ -48,7 +48,7 @@ jobs:
     - name: colcon build
       run: |
         cd ${{github.workspace}}/ros2_ws/src/l3xz_openmv_camera
-        git submodule update --init
+        git submodule update --init --progress --depth 1
         source /opt/ros/${{ matrix.ros_distro }}/setup.bash
         cd ${{github.workspace}}/ros2_ws
         colcon build --event-handlers console_direct+
