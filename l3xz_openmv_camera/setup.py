@@ -4,7 +4,7 @@ package_name = 'l3xz_openmv_camera'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='1.0.0',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -15,10 +15,10 @@ setup(
     include_package_data=True,
     package_dir={"l3xz_openmv_camera.openmv": "l3xz_openmv_camera/openmv/tools/rpc"},
     zip_safe=True,
-    maintainer='root',
-    maintainer_email='root@todo.todo',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    maintainer='Jonas Wuehr',
+    maintainer_email='jonaswuehrmaintainer@gmail.com',
+    description='ROS2 node for openmv camera',
+    license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
