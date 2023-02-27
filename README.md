@@ -32,7 +32,7 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 git clone --recursive https://github.com/107-systems/l3xz_openmv_camera
 # Build the package
 source /opt/ros/humble/setup.bash
-colcon build --packages-select l3xz_openmv_camera
+PYTHONWARNINGS=ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install,ignore:::pkg_resources colcon build --packages-select l3xz_openmv_camera
 ```
 
 ### How-to-run
