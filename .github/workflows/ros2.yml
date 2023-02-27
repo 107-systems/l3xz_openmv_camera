@@ -30,7 +30,7 @@ jobs:
         ros_distro: [ humble ]
 
     steps:   
-    - uses: ros-tooling/setup-ros@v0.5
+    - uses: ros-tooling/setup-ros@v0.6
       with:
         required-ros-distributions: ${{ matrix.ros_distro }}
     
