@@ -16,9 +16,6 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
  
 # Setup
 
-#### Target (Robot)
-[ROS Galactic Geochelone](https://docs.ros.org/en/foxy/Releases/Release-Galactic-Geochelone.html)
-
 ## Prepare camera
 1) Connect camera via USB
 2) Copy ```camera_script/main.py``` to the USB drive of the camera
@@ -32,12 +29,10 @@ ROS driver for [OpenMV Cam H7 R2](https://openmv.io/collections/cams/products/op
 ### How-to-build
 ```bash
 # Clone this repository
-git clone https://github.com/107-systems/l3xz_openmv_camera
-cd l3xz_openmv_camera
-git submodule update --init --progress --depth 1
+git clone --recursive https://github.com/107-systems/l3xz_openmv_camera
 # Build the package
-source /opt/ros/galactic/setup.bash
-colcon build
+source /opt/ros/humble/setup.bash
+colcon build --packages-select l3xz_openmv_camera
 ```
 
 ### How-to-run
