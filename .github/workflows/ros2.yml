@@ -52,3 +52,4 @@ jobs:
         source /opt/ros/${{ matrix.ros_distro }}/setup.bash
         cd ${{github.workspace}}/ros2_ws
         colcon build --event-handlers console_direct+
+        python3 --version
