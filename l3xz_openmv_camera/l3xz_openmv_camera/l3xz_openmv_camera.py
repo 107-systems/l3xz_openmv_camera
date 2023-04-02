@@ -71,7 +71,7 @@ class CameraNode(Node):
     framedump = self._cam.dump()
     if framedump is not None:
       if self.get_parameter('show_image').value:
-        cv2.imshow("test", framedump.pixels)
+        cv2.imshow(self.get_name(), framedump.pixels)
         cv2.waitKey(1)
       self._pub_image.publish(framedump.fill_img_msg(self._img_msg))
       self._pub_image_compressed.publish(framedump.fill_jpeg_msg(self._img_compressed_msg))
