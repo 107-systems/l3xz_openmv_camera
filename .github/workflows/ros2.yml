@@ -4,19 +4,15 @@ on:
   push:
     paths:
       - ".github/workflows/ros2.yml"
-      - "include/**"
+      - "l3xz_openmv_camera/**"
+      - "l3xz_openmv_camera_interfaces/**"
       - "launch/**"
-      - "src/**"
-      - "CMakeLists.txt"
-      - "package.xml"
   pull_request:
     paths:
       - ".github/workflows/ros2.yml"
-      - "include/**"
+      - "l3xz_openmv_camera/**"
+      - "l3xz_openmv_camera_interfaces/**"
       - "launch/**"
-      - "src/**"
-      - "CMakeLists.txt"
-      - "package.xml"
 
 env:
   BUILD_TYPE: Release
