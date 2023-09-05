@@ -37,7 +37,7 @@ jobs:
         cd ${{github.workspace}}/ros2_ws
         colcon build
         
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: 'ros2_ws/src/l3xz_openmv_camera'
         
