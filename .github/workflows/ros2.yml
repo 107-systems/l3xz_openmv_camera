@@ -20,10 +20,10 @@ env:
 jobs:
   build:
     name: Build on ros2 ${{ matrix.ros_distro }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        ros_distro: [ humble ]
+        ros_distro: [ jazzy ]
 
     steps:   
     - uses: ros-tooling/setup-ros@v0.7
